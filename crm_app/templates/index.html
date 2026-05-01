@@ -1,0 +1,53 @@
+{% extends "_base.html" %}
+{% block content %}
+<h2 class="mb-4">Панель управления (Аналитика)</h2>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card bg-primary text-white p-3">
+            <h5>Всего лидов</h5>
+            <h3>{{ total_leads }}</h3>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-success text-white p-3">
+            <h5>Активных клиентов</h5>
+            <h3>{{ total_clients }}</h3>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-warning text-dark p-3">
+            <h5>Общая выручка</h5>
+            <h3>{{ total_revenue }} руб.</h3>
+        </div>
+    </div>
+</div>
+
+<h4>Эффективность рекламных кампаний</h4>
+<table class="table table-striped mt-3">
+    <thead>
+        <tr>
+            <th>Кампания</th>
+            <th>Бюджет</th>
+            <th>Лидов пришло</th>
+            <th>Клиентов стало</th>
+            <th>Конверсия (%)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for camp in campaign_stats %}
+        <tr>
+            <td>{{ camp.name }}</td>
+            <td>{{ camp.budget }} руб.</td>
+            <td>{{ camp.leads_count }}</td>
+            <td>{{ camp.clients_count }}</td>
+            <td>
+                {% if camp.leads_count > 0 %}
+                    {{ camp.clients_count|add:"0"|divisibleby:camp.leads_count }}% 
+                {% else %}0%{% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

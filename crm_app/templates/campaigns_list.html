@@ -1,0 +1,27 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<h2>Рекламные кампании</h2>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Название</th>
+            <th>Услуга</th>
+            <th>Канал</th>
+            <th>Бюджет</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for campaign in campaigns %}
+        <tr>
+            <td>{{ campaign.name }}</td>
+            <td>{{ campaign.service.name }}</td>
+            <td>{{ campaign.channel }}</td>
+            <td>{{ campaign.budget }} руб.</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">Кампаний пока нет.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
