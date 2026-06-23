@@ -11,17 +11,45 @@
 ## Технологии
 - Python 3.13
 - Django 6.0
-- PostgreSQL (через порт 5433)
+- PostgreSQL 
+- Docker & Docker Compose
 - Bootstrap 5
 
 ## Установка и запуск
 
+### Вариант 1. Запуск через Docker (Рекомендуемый)
+Этот способ автоматически развернет бэкенд на Django и базу данных PostgreSQL в изолированных контейнерах, не требуя локальной настройки окружения.
+
+1. **Клонируйте проект:**
+   ```bash
+   git clone https://github.com
+   cd CRM
+   ```
+
+2. **Запустите сборку и старт контейнеров:**
+   ```bash
+   docker-compose up --build
+   ```
+
+3. **Создайте суперпользователя (администратора) внутри контейнера:**
+   ```bash
+   docker-compose exec web python manage.py createsuperuser
+   ```
+
+4. **Доступ к системе:**
+   - Главная страница: `http://localhost:8001/`
+   - Админ-панель: `http://localhost:8001/admin/`
+
+### Вариант 2. Локальный запуск (Классический) 
+
 1. **Клонируйте проект и настройте виртуально окружение:**
 ```bash
-    python -m venv venv
-    source venv/bin/activate  
-    pip install -r requirements.txt
-```
+   git clone https://github.com
+   cd CRM
+   python3 -m venv venv
+   source venv/bin/activate  
+   pip install -r requirements.txt
+   ```
 
 2. **Настройка базы данных (PostgreSQL):**
     - Убедитесь, что PostgreSQL запущен на порту `5433`.
@@ -32,7 +60,7 @@
    python manage.py migrate
    python manage.py createsuperuser
    python manage.py runserver
-```
+   ```
 
 4. **Доступ к системе:**
    - Главная страница: `http://127.0.0.1:8000/`
